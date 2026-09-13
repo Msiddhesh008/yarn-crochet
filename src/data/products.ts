@@ -1,4 +1,5 @@
 import type { GalleryItem, Product, Testimonial } from '../types'
+import { assetUrl } from '../utils/assetUrl'
 import { palette } from './palette'
 
 const { mutedPink, butter, cream, sage, warmBrown, terracotta, dustyRose } =
@@ -13,7 +14,7 @@ export const products: Product[] = [
     price: 28,
     description:
       'A soft crochet flower in dusty rose, finished with a butter-yellow centre. Perfect as a gift, hair piece, or keepsake.',
-    image: '/products/dusty-rose-blossom.jpg',
+    image: assetUrl('/products/dusty-rose-blossom.jpg'),
     colors: [mutedPink, butter, cream],
     featured: true,
   },
@@ -25,7 +26,7 @@ export const products: Product[] = [
     price: 68,
     description:
       'A roomy handmade tote in muted sage. Strong enough for markets, soft enough for everyday.',
-    image: '/products/sage-market-tote.jpg',
+    image: assetUrl('/products/sage-market-tote.jpg'),
     colors: [sage, warmBrown, cream],
     featured: true,
   },
@@ -37,7 +38,7 @@ export const products: Product[] = [
     price: 42,
     description:
       'A plush crochet bunny in butter yellow with terracotta blush. Soft, small, and endlessly hug-worthy.',
-    image: '/products/butter-bunny.jpg',
+    image: assetUrl('/products/butter-bunny.jpg'),
     colors: [butter, terracotta, cream],
     featured: true,
   },
@@ -49,7 +50,7 @@ export const products: Product[] = [
     price: 18,
     description:
       'Three miniature crochet loops on a brass ring — a pocket-sized reminder of handmade joy.',
-    image: '/products/loop-keychain.jpg',
+    image: assetUrl('/products/loop-keychain.jpg'),
     colors: [mutedPink, sage, butter],
     featured: false,
   },
@@ -61,7 +62,7 @@ export const products: Product[] = [
     price: 34,
     description:
       'A clustered posy of terracotta petals and sage leaves. Arranged by hand, never identical.',
-    image: '/products/terracotta-posy.jpg',
+    image: assetUrl('/products/terracotta-posy.jpg'),
     colors: [terracotta, sage, warmBrown],
     featured: true,
   },
@@ -73,7 +74,7 @@ export const products: Product[] = [
     price: 78,
     description:
       'A soft cloud-shaped bag in warm ivory. Light, dreamy, and made for slow afternoons.',
-    image: '/products/ivory-cloud-bag.jpg',
+    image: assetUrl('/products/ivory-cloud-bag.jpg'),
     colors: [cream, mutedPink, warmBrown],
     featured: false,
   },
@@ -85,7 +86,7 @@ export const products: Product[] = [
     price: 24,
     description:
       'A palm-sized crochet heart in muted pink. Made to be given — or kept close.',
-    image: '/products/little-heart.jpg',
+    image: assetUrl('/products/little-heart.jpg'),
     colors: [mutedPink, dustyRose, cream],
     featured: false,
   },
@@ -97,7 +98,7 @@ export const products: Product[] = [
     price: 56,
     description:
       'A curated set of three crochet blooms wrapped in soft tissue. Ready to gift.',
-    image: '/products/garden-gift.jpg',
+    image: assetUrl('/products/garden-gift.jpg'),
     colors: [sage, mutedPink, butter],
     featured: true,
   },
@@ -109,7 +110,7 @@ export const products: Product[] = [
     price: 14,
     description:
       'A single crochet stitch charm on a warm brass clasp. Small enough for keys, meaningful enough for keepsakes.',
-    image: '/products/stitch-charm.jpg',
+    image: assetUrl('/products/stitch-charm.jpg'),
     colors: [terracotta, warmBrown, cream],
     featured: false,
   },
@@ -121,19 +122,19 @@ export const products: Product[] = [
     price: 95,
     description:
       'A made-to-order crochet piece designed around your colours and idea. Start with a custom request.',
-    image: '/products/custom-dream.jpg',
+    image: assetUrl('/products/custom-dream.jpg'),
     colors: [mutedPink, sage, terracotta, butter],
     featured: true,
   },
 ]
 
 export const galleryItems: GalleryItem[] = [
-  { id: 'g1', image: '/gallery/g1.jpg', caption: 'Soft petals, dusty rose' },
-  { id: 'g2', image: '/gallery/g2.jpg', caption: 'Yarn waiting on the table' },
-  { id: 'g3', image: '/gallery/g3.jpg', caption: 'First loop of the day' },
-  { id: 'g4', image: '/gallery/g4.jpg', caption: 'Behind the stitches' },
-  { id: 'g5', image: '/gallery/g5.jpg', caption: 'Wrapped with care' },
-  { id: 'g6', image: '/gallery/g6.jpg', caption: 'Finished and ready' },
+  { id: 'g1', image: assetUrl('/gallery/g1.jpg'), caption: 'Soft petals, dusty rose' },
+  { id: 'g2', image: assetUrl('/gallery/g2.jpg'), caption: 'Yarn waiting on the table' },
+  { id: 'g3', image: assetUrl('/gallery/g3.jpg'), caption: 'First loop of the day' },
+  { id: 'g4', image: assetUrl('/gallery/g4.jpg'), caption: 'Behind the stitches' },
+  { id: 'g5', image: assetUrl('/gallery/g5.jpg'), caption: 'Wrapped with care' },
+  { id: 'g6', image: assetUrl('/gallery/g6.jpg'), caption: 'Finished and ready' },
 ]
 
 export const testimonials: Testimonial[] = [

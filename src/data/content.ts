@@ -1,3 +1,5 @@
+import { assetUrl } from '../utils/assetUrl'
+
 export const brand = {
   name: 'Yarn',
   tagline: 'little hands. big dreams.',
@@ -40,7 +42,7 @@ export const maker = {
   ],
   signature: '— Yarn',
   note: 'Created by a ten-year-old maker with ten years of wonder ahead.',
-  image: '/maker/creator.png',
+  image: assetUrl('/maker/creator.png'),
 }
 
 export const process = {
