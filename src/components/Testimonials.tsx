@@ -1,7 +1,7 @@
 import { useEffect, useRef } from 'react'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
-import { testimonials } from '../data/products'
+import { testimonials } from '../data/content'
 import { usePrefersReducedMotion } from '../hooks/usePrefersReducedMotion'
 
 gsap.registerPlugin(ScrollTrigger)
@@ -38,9 +38,9 @@ export function Testimonials() {
   return (
     <section className="section testimonials" ref={ref} id="testimonials">
       <div className="container">
-        <p className="eyebrow">Kind words</p>
+        <p className="eyebrow">{testimonials.eyebrow}</p>
         <div className="testimonial-list">
-          {testimonials.map((item) => (
+          {testimonials.items.map((item) => (
             <article key={item.id} className="testimonial">
               <blockquote>&ldquo;{item.quote}&rdquo;</blockquote>
               <cite>{item.author}</cite>

@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import { getFeaturedProducts } from '../data/products'
+import { featuredShowcase } from '../data/content'
 import { usePrefersReducedMotion } from '../hooks/usePrefersReducedMotion'
 import { useIsDesktop } from '../hooks/useMediaQuery'
 
@@ -65,10 +66,10 @@ export function ProductShowcase() {
     <section className="section showcase" ref={sectionRef} id="showcase">
       <div className="showcase__pin" ref={pinRef}>
         <div className="container showcase__intro">
-          <p className="eyebrow">Featured</p>
+          <p className="eyebrow">{featuredShowcase.eyebrow}</p>
           <h2 className="section-heading">
-            Pieces to hold.
-            <span>Stories to keep.</span>
+            {featuredShowcase.heading}
+            <span>{featuredShowcase.subheading}</span>
           </h2>
         </div>
         <div className="showcase__track" ref={trackRef}>

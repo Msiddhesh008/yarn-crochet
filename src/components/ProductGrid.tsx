@@ -1,5 +1,5 @@
-import { collection } from '../data/content'
-import { products } from '../data/products'
+import { getCollectionProducts } from '../data/products'
+import { getSiteContent } from '../data/content'
 import { ProductCard } from './ProductCard'
 
 interface ProductGridProps {
@@ -8,13 +8,14 @@ interface ProductGridProps {
 }
 
 export function ProductGrid({ limit = 6, asymmetric = true }: ProductGridProps) {
-  const items = products.slice(0, limit)
+  const { collection } = getSiteContent()
+  const items = getCollectionProducts().slice(0, limit)
 
   return (
     <section className="section" id="collection">
       <div className="container">
         <p className="eyebrow" data-reveal>
-          The Collection
+          {collection.eyebrow}
         </p>
         <h2 className="section-heading" data-reveal>
           {collection.heading}

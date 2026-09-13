@@ -1,18 +1,18 @@
-import { galleryItems } from '../data/products'
+import { gallery } from '../data/content'
 
 export function Gallery() {
   return (
     <section className="section" id="gallery">
       <div className="container">
         <p className="eyebrow" data-reveal>
-          Studio notes
+          {gallery.eyebrow}
         </p>
         <h2 className="section-heading" data-reveal>
-          Soft moments.
-          <span>Quiet stitches.</span>
+          {gallery.heading}
+          <span>{gallery.subheading}</span>
         </h2>
         <div className="gallery-grid">
-          {galleryItems.map((item) => (
+          {gallery.items.map((item) => (
             <article key={item.id} className="gallery-item" data-cursor="loop">
               <img src={item.image} alt={item.caption} loading="lazy" />
               <div className="gallery-item__overlay">

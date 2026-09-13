@@ -1,4 +1,4 @@
-import type { GalleryItem, Product, Testimonial } from '../types'
+import type { Product } from '../types'
 import { assetUrl } from '../utils/assetUrl'
 import { palette } from './palette'
 
@@ -6,6 +6,32 @@ const { mutedPink, butter, cream, sage, warmBrown, terracotta, dustyRose } =
   palette
 
 export const products: Product[] = [
+  {
+    id: '11',
+    slug: 'sunny-teddy',
+    name: 'Sunny Teddy',
+    category: 'Plushies',
+    price: 48,
+    description:
+      'A soft yellow crochet teddy with a little red yarn scarf. Handmade with love — tiny, warm, and ready to hug.',
+    image: assetUrl('/products/sunny-teddy.jpg'),
+    colors: [butter, '#c45c5c', cream],
+    featured: true,
+    showInCollection: true,
+  },
+  {
+    id: '12',
+    slug: 'pink-cozy-bear',
+    name: 'Pink Cozy Bear',
+    category: 'Plushies',
+    price: 52,
+    description:
+      'A rosy pink amigurumi bear in a blue hat and sweater with white pom-pom and buttons. Little things, big joys.',
+    image: assetUrl('/products/pink-cozy-bear.jpg'),
+    colors: [dustyRose, '#6b8cae', cream],
+    featured: true,
+    showInCollection: true,
+  },
   {
     id: '1',
     slug: 'dusty-rose-blossom',
@@ -17,6 +43,7 @@ export const products: Product[] = [
     image: assetUrl('/products/dusty-rose-blossom.jpg'),
     colors: [mutedPink, butter, cream],
     featured: true,
+    showInCollection: true,
   },
   {
     id: '2',
@@ -29,6 +56,7 @@ export const products: Product[] = [
     image: assetUrl('/products/sage-market-tote.jpg'),
     colors: [sage, warmBrown, cream],
     featured: true,
+    showInCollection: true,
   },
   {
     id: '3',
@@ -41,6 +69,7 @@ export const products: Product[] = [
     image: assetUrl('/products/butter-bunny.jpg'),
     colors: [butter, terracotta, cream],
     featured: true,
+    showInCollection: true,
   },
   {
     id: '4',
@@ -53,6 +82,7 @@ export const products: Product[] = [
     image: assetUrl('/products/loop-keychain.jpg'),
     colors: [mutedPink, sage, butter],
     featured: false,
+    showInCollection: false,
   },
   {
     id: '5',
@@ -65,6 +95,7 @@ export const products: Product[] = [
     image: assetUrl('/products/terracotta-posy.jpg'),
     colors: [terracotta, sage, warmBrown],
     featured: true,
+    showInCollection: true,
   },
   {
     id: '6',
@@ -77,6 +108,7 @@ export const products: Product[] = [
     image: assetUrl('/products/ivory-cloud-bag.jpg'),
     colors: [cream, mutedPink, warmBrown],
     featured: false,
+    showInCollection: false,
   },
   {
     id: '7',
@@ -89,6 +121,7 @@ export const products: Product[] = [
     image: assetUrl('/products/little-heart.jpg'),
     colors: [mutedPink, dustyRose, cream],
     featured: false,
+    showInCollection: false,
   },
   {
     id: '8',
@@ -101,6 +134,7 @@ export const products: Product[] = [
     image: assetUrl('/products/garden-gift.jpg'),
     colors: [sage, mutedPink, butter],
     featured: true,
+    showInCollection: true,
   },
   {
     id: '9',
@@ -113,6 +147,7 @@ export const products: Product[] = [
     image: assetUrl('/products/stitch-charm.jpg'),
     colors: [terracotta, warmBrown, cream],
     featured: false,
+    showInCollection: false,
   },
   {
     id: '10',
@@ -125,33 +160,7 @@ export const products: Product[] = [
     image: assetUrl('/products/custom-dream.jpg'),
     colors: [mutedPink, sage, terracotta, butter],
     featured: true,
-  },
-]
-
-export const galleryItems: GalleryItem[] = [
-  { id: 'g1', image: assetUrl('/gallery/g1.jpg'), caption: 'Soft petals, dusty rose' },
-  { id: 'g2', image: assetUrl('/gallery/g2.jpg'), caption: 'Yarn waiting on the table' },
-  { id: 'g3', image: assetUrl('/gallery/g3.jpg'), caption: 'First loop of the day' },
-  { id: 'g4', image: assetUrl('/gallery/g4.jpg'), caption: 'Behind the stitches' },
-  { id: 'g5', image: assetUrl('/gallery/g5.jpg'), caption: 'Wrapped with care' },
-  { id: 'g6', image: assetUrl('/gallery/g6.jpg'), caption: 'Finished and ready' },
-]
-
-export const testimonials: Testimonial[] = [
-  {
-    id: 't1',
-    quote: 'Every little detail feels like it was made just for us.',
-    author: 'Maya R.',
-  },
-  {
-    id: 't2',
-    quote: 'The softest bag I own — and the story behind it makes it even better.',
-    author: 'Elena K.',
-  },
-  {
-    id: 't3',
-    quote: 'A gift that felt personal, handmade, and quietly luxurious.',
-    author: 'Priya S.',
+    showInCollection: false,
   },
 ]
 
@@ -161,4 +170,8 @@ export function getProductBySlug(slug: string): Product | undefined {
 
 export function getFeaturedProducts(): Product[] {
   return products.filter((p) => p.featured)
+}
+
+export function getCollectionProducts(): Product[] {
+  return products.filter((p) => p.showInCollection)
 }

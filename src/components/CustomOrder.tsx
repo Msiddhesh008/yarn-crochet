@@ -30,7 +30,7 @@ export function CustomOrder() {
     <section className="section custom-cta" id="custom">
       <div className="container">
         <p className="eyebrow" data-reveal>
-          Custom
+          {customOrder.eyebrow}
         </p>
         <h2 className="section-heading" data-reveal>
           {customOrder.heading}

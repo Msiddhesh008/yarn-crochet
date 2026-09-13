@@ -32,7 +32,7 @@ export function MakerSection() {
         </div>
 
         <div className="maker__story" data-reveal>
-          <p className="eyebrow">The maker</p>
+          <p className="eyebrow">{maker.eyebrow}</p>
           <h2 className="section-heading">{maker.heading}</h2>
           <div className="maker__lines">
             {maker.story.map((line) => (

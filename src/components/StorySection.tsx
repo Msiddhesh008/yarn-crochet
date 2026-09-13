@@ -62,7 +62,7 @@ export function StorySection() {
     <section className="section stitch-story" ref={sectionRef} id="story">
       <div className="stitch-story__pin">
         <div className="container">
-          <p className="eyebrow">The making</p>
+          <p className="eyebrow">{stitchStory.eyebrow}</p>
           <h2 className="section-heading">{stitchStory.heading}</h2>
           <svg
             className="stitch-story__path"

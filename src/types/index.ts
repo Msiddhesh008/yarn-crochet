@@ -16,6 +16,7 @@ export interface Product {
   image: string
   colors: string[]
   featured: boolean
+  showInCollection: boolean
 }
 
 export interface CartItem {
@@ -42,3 +43,12 @@ export interface Testimonial {
   quote: string
   author: string
 }
+
+export type {
+  SiteContent,
+  ProcessVisual,
+  StitchStoryStep,
+  ProcessStep,
+  GalleryContentItem,
+  TestimonialItem,
+} from './content'

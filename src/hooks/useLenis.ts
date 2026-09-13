@@ -5,9 +5,28 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger'
 
 gsap.registerPlugin(ScrollTrigger)
 
+let lenisInstance: Lenis | null = null
+
+export function getLenis() {
+  return lenisInstance
+}
+
+export function scrollToTop(immediate = true) {
+  const lenis = getLenis()
+  if (lenis) {
+    lenis.scrollTo(0, { immediate })
+  }
+  window.scrollTo(0, 0)
+  document.documentElement.scrollTop = 0
+  document.body.scrollTop = 0
+}
+
 export function useLenis(enabled = true) {
   useEffect(() => {
-    if (!enabled) return
+    if (!enabled) {
+      lenisInstance = null
+      return
+    }
 
     const lenis = new Lenis({
       duration: 1.1,
@@ -15,6 +34,7 @@ export function useLenis(enabled = true) {
       smoothWheel: true,
     })
 
+    lenisInstance = lenis
     lenis.on('scroll', ScrollTrigger.update)
 
     const tickerCallback = (time: number) => {
@@ -27,6 +47,7 @@ export function useLenis(enabled = true) {
     return () => {
       gsap.ticker.remove(tickerCallback)
       lenis.destroy()
+      if (lenisInstance === lenis) lenisInstance = null
     }
   }, [enabled])
 }

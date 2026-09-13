@@ -1,5 +1,6 @@
 import { useMemo, useState } from 'react'
 import { products } from '../data/products'
+import { shopPage } from '../data/content'
 import { ProductCard } from '../components/ProductCard'
 import type { ProductCategory } from '../types'
 
@@ -24,10 +25,10 @@ export function ShopPage() {
   return (
     <div className="page" style={{ paddingTop: 0 }}>
       <div className="container page-hero">
-        <p className="eyebrow">Shop</p>
+        <p className="eyebrow">{shopPage.eyebrow}</p>
         <h1 className="section-heading">
-          The collection.
-          <span>Every piece a little world.</span>
+          {shopPage.heading}
+          <span>{shopPage.subheading}</span>
         </h1>
       </div>
       <div className="container">

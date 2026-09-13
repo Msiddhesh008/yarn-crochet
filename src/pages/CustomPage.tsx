@@ -1,17 +1,16 @@
 import { CustomOrder } from '../components/CustomOrder'
+import { customPage } from '../data/content'
 
 export function CustomPage() {
   return (
     <div className="page" style={{ paddingTop: 0 }}>
       <div className="container page-hero">
-        <p className="eyebrow">Custom orders</p>
+        <p className="eyebrow">{customPage.eyebrow}</p>
         <h1 className="section-heading">
-          Your idea.
-          <span>Our stitches.</span>
+          {customPage.heading}
+          <span>{customPage.subheading}</span>
         </h1>
-        <p className="section-intro">
-          Share a colour, a shape, a feeling — we&apos;ll turn yarn into something made just for you.
-        </p>
+        <p className="section-intro">{customPage.intro}</p>
       </div>
       <CustomOrder />
     </div>

@@ -5,7 +5,6 @@ import { hero } from '../data/content'
 import { MagneticButton } from './MagneticButton'
 import { createHeroTimeline } from '../animations/heroAnimations'
 import { usePrefersReducedMotion } from '../hooks/usePrefersReducedMotion'
-import bowRose from '../assets/subjects/bow-rose.png'
 
 interface HeroProps {
   ready: boolean
@@ -71,7 +70,7 @@ export function Hero({ ready }: HeroProps) {
           <div className="hero__floater hero__floater--3" />
           <Link to="/shop" className="hero__media" data-cursor="loop">
             <img
-              src={bowRose}
+              src={hero.image}
               alt="Handmade crochet heart"
               width={660}
               height={775}

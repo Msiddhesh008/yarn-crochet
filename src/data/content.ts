@@ -1,68 +1,241 @@
+import type { SiteContent } from '../types'
 import { assetUrl } from '../utils/assetUrl'
+import logo from '../assets/logo-transparent.png'
+import bowRose from '../assets/subjects/bow-rose.png'
 
-export const brand = {
-  name: 'Yarn',
-  tagline: 'little hands. big dreams.',
-  loaderText: 'Made one loop at a time.',
+const year = new Date().getFullYear()
+
+/** Seed storefront content — swap getSiteContent() for API fetch later. */
+export const siteContent: SiteContent = {
+  brand: {
+    name: 'Yarn',
+    tagline: 'little hands. big dreams.',
+    loaderText: 'Made one loop at a time.',
+    logoSrc: logo,
+  },
+  hero: {
+    line1: 'Made by little hands.',
+    line2: 'Made to be loved.',
+    supporting:
+      'Premium handmade crochet, stitched with curiosity and care.',
+    primaryCta: 'Shop the collection',
+    secondaryCta: 'Meet the maker',
+    image: bowRose,
+  },
+  collection: {
+    eyebrow: 'The Collection',
+    heading: 'Little loops.',
+    subheading: 'Big imagination.',
+    intro:
+      'An editorial selection of flowers, bags, plushies, and gifts — each piece unique.',
+  },
+  stitchStory: {
+    eyebrow: 'The making',
+    heading: 'Made one stitch at a time.',
+    steps: [
+      {
+        id: '01',
+        title: 'Choose the yarn',
+        description: 'Soft fibres in colours that feel like home.',
+      },
+      {
+        id: '02',
+        title: 'Find the colours',
+        description: 'Dusty rose, sage, butter yellow — chosen by feel.',
+      },
+      {
+        id: '03',
+        title: 'Make the first loop',
+        description: 'Where every piece begins: one quiet loop.',
+      },
+      {
+        id: '04',
+        title: 'Stitch by stitch',
+        description: 'Slow work. Tiny hands. Endless patience.',
+      },
+      {
+        id: '05',
+        title: 'Finished with love',
+        description: 'A handmade gift ready to be held.',
+      },
+    ],
+  },
+  maker: {
+    eyebrow: 'The maker',
+    heading: 'Behind every little loop.',
+    story: [
+      'She started crocheting with curiosity.',
+      'A little yarn became a flower.',
+      'A flower became a gift.',
+      'And slowly, one stitch at a time,',
+      'it became her little world.',
+    ],
+    signature: '— Yarn',
+    note: 'Created by a ten-year-old maker with ten years of wonder ahead.',
+    image: assetUrl('/maker/creator.png'),
+  },
+  process: {
+    eyebrow: 'The process',
+    heading: 'From yarn to something beautiful',
+    steps: [
+      {
+        label: 'Yarn',
+        caption: 'Soft fibres, chosen by feel',
+        visual: 'yarn',
+      },
+      {
+        label: 'Hook',
+        caption: 'One quiet tool in little hands',
+        visual: 'hook',
+      },
+      {
+        label: 'Stitch',
+        caption: 'Loop by loop, slowly',
+        visual: 'stitch',
+      },
+      {
+        label: 'Flower',
+        caption: 'Shape begins to bloom',
+        visual: 'flower',
+      },
+      {
+        label: 'Finished',
+        caption: 'A piece ready to love',
+        visual: 'finished',
+        image: assetUrl('/products/sunny-teddy.jpg'),
+      },
+    ],
+  },
+  featuredShowcase: {
+    eyebrow: 'Featured',
+    heading: 'Pieces to hold.',
+    subheading: 'Stories to keep.',
+  },
+  customOrder: {
+    eyebrow: 'Custom',
+    heading: 'Have something special in mind?',
+    subheading: "Tell us your idea. We'll turn yarn into something wonderful.",
+    cta: 'Create something custom',
+  },
+  gallery: {
+    eyebrow: 'Studio notes',
+    heading: 'Soft moments.',
+    subheading: 'Quiet stitches.',
+    items: [
+      {
+        id: 'g1',
+        image: assetUrl('/gallery/g1.jpg'),
+        caption: 'Soft petals, dusty rose',
+      },
+      {
+        id: 'g2',
+        image: assetUrl('/gallery/g2.jpg'),
+        caption: 'Yarn waiting on the table',
+      },
+      {
+        id: 'g3',
+        image: assetUrl('/gallery/g3.jpg'),
+        caption: 'First loop of the day',
+      },
+      {
+        id: 'g4',
+        image: assetUrl('/gallery/g4.jpg'),
+        caption: 'Behind the stitches',
+      },
+      {
+        id: 'g5',
+        image: assetUrl('/gallery/g5.jpg'),
+        caption: 'Wrapped with care',
+      },
+      {
+        id: 'g6',
+        image: assetUrl('/gallery/g6.jpg'),
+        caption: 'Finished and ready',
+      },
+    ],
+  },
+  testimonials: {
+    eyebrow: 'Kind words',
+    items: [
+      {
+        id: 't1',
+        quote: 'Every little detail feels like it was made just for us.',
+        author: 'Maya R.',
+      },
+      {
+        id: 't2',
+        quote:
+          'The softest bag I own — and the story behind it makes it even better.',
+        author: 'Elena K.',
+      },
+      {
+        id: 't3',
+        quote:
+          'A gift that felt personal, handmade, and quietly luxurious.',
+        author: 'Priya S.',
+      },
+    ],
+  },
+  shopPage: {
+    eyebrow: 'Shop',
+    heading: 'The collection.',
+    subheading: 'Every piece a little world.',
+  },
+  aboutPage: {
+    eyebrow: 'Our story',
+    heading: 'A little world',
+    subheading: 'made of yarn.',
+    intro:
+      'Yarn began with curiosity, soft fibre, and a ten-year-old maker who found joy one loop at a time.',
+    cta: 'Start a custom piece',
+  },
+  customPage: {
+    eyebrow: 'Custom orders',
+    heading: 'Your idea.',
+    subheading: 'Our stitches.',
+    intro:
+      "Share a colour, a shape, a feeling — we'll turn yarn into something made just for you.",
+  },
+  footer: {
+    headline: 'See you in the next stitch.',
+    copyright: `© ${year} Yarn. Handmade with love.`,
+    visitLabel: 'Visit',
+    contactLabel: 'Contact',
+    socialLabel: 'Social',
+    email: 'hello@yarn.studio',
+    handmadeNote: 'Handmade to order',
+  },
+  instagram: {
+    handle: '@CROCHETBYSONAKSHI',
+    url: 'https://www.instagram.com/crochetbysonakshi/',
+    qrImage: assetUrl('/instagram-qr-brand.jpg'),
+    scanLabel: 'Scan to follow on Instagram',
+  },
+  handmadeNote:
+    'Made by hand. Tiny variations make every piece unique.',
 }
 
-export const hero = {
-  line1: 'Made by little hands.',
-  line2: 'Made to be loved.',
-  supporting: 'Premium handmade crochet, stitched with curiosity and care.',
-  primaryCta: 'Shop the collection',
-  secondaryCta: 'Meet the maker',
+/** Today returns seed; later replace with fetch('/api/content'). */
+export function getSiteContent(): SiteContent {
+  return siteContent
 }
 
-export const collection = {
-  heading: 'Little loops.',
-  subheading: 'Big imagination.',
-  intro: 'An editorial selection of flowers, bags, plushies, and gifts — each piece unique.',
-}
-
-export const stitchStory = {
-  heading: 'Made one stitch at a time.',
-  steps: [
-    { id: '01', title: 'Choose the yarn', description: 'Soft fibres in colours that feel like home.' },
-    { id: '02', title: 'Find the colours', description: 'Dusty rose, sage, butter yellow — chosen by feel.' },
-    { id: '03', title: 'Make the first loop', description: 'Where every piece begins: one quiet loop.' },
-    { id: '04', title: 'Stitch by stitch', description: 'Slow work. Tiny hands. Endless patience.' },
-    { id: '05', title: 'Finished with love', description: 'A handmade gift ready to be held.' },
-  ],
-}
-
-export const maker = {
-  heading: 'Behind every little loop.',
-  story: [
-    'She started crocheting with curiosity.',
-    'A little yarn became a flower.',
-    'A flower became a gift.',
-    'And slowly, one stitch at a time,',
-    'it became her little world.',
-  ],
-  signature: '— Yarn',
-  note: 'Created by a ten-year-old maker with ten years of wonder ahead.',
-  image: assetUrl('/maker/creator.png'),
-}
-
-export const process = {
-  heading: 'From yarn to something beautiful',
-  steps: ['Yarn', 'Hook', 'Stitch', 'Flower', 'Finished'],
-}
-
-export const customOrder = {
-  heading: 'Have something special in mind?',
-  subheading: "Tell us your idea. We'll turn yarn into something wonderful.",
-  cta: 'Create something custom',
-}
-
-export const footer = {
-  headline: 'See you in the next stitch.',
-  copyright: `© ${new Date().getFullYear()} Yarn. Handmade with love.`,
-}
-
-export const handmadeNote =
-  'Made by hand. Tiny variations make every piece unique.'
+export const brand = siteContent.brand
+export const hero = siteContent.hero
+export const collection = siteContent.collection
+export const stitchStory = siteContent.stitchStory
+export const maker = siteContent.maker
+export const process = siteContent.process
+export const featuredShowcase = siteContent.featuredShowcase
+export const customOrder = siteContent.customOrder
+export const gallery = siteContent.gallery
+export const testimonials = siteContent.testimonials
+export const shopPage = siteContent.shopPage
+export const aboutPage = siteContent.aboutPage
+export const customPage = siteContent.customPage
+export const footer = siteContent.footer
+export const instagram = siteContent.instagram
+export const handmadeNote = siteContent.handmadeNote
 
 export const navLinks = [
   { label: 'Shop', to: '/shop' },

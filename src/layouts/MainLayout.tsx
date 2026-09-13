@@ -6,7 +6,7 @@ import { Loader } from '../components/Loader'
 import { YarnTrail } from '../components/YarnTrail'
 import { CartDrawer } from '../components/CartDrawer'
 import { SearchPanel } from '../components/SearchPanel'
-import { useLenis } from '../hooks/useLenis'
+import { useLenis, scrollToTop } from '../hooks/useLenis'
 import { usePrefersReducedMotion } from '../hooks/usePrefersReducedMotion'
 import { initSectionReveals } from '../animations/scrollAnimations'
 import gsap from 'gsap'
@@ -32,14 +32,15 @@ export function MainLayout() {
   }, [reduced])
 
   useEffect(() => {
-    window.scrollTo(0, 0)
+    scrollToTop(true)
     ScrollTrigger.refresh()
     const t = window.setTimeout(() => {
+      scrollToTop(true)
       initSectionReveals(reduced)
       ScrollTrigger.refresh()
     }, 100)
     return () => window.clearTimeout(t)
-  }, [location.pathname, reduced])
+  }, [location.pathname, location.search, location.hash, reduced])
 
   return (
     <>

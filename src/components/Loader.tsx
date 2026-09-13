@@ -1,5 +1,4 @@
 import { brand } from '../data/content'
-import logoSrc from '../assets/logo-transparent.png'
 
 interface LoaderProps {
   done: boolean
@@ -11,7 +10,7 @@ export function Loader({ done }: LoaderProps) {
       <div className="loader__inner">
         <img
           className="loader__logo"
-          src={logoSrc}
+          src={brand.logoSrc}
           alt=""
           width={220}
           height={138}

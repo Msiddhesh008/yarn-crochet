@@ -1,15 +1,6 @@
 import { Link } from 'react-router-dom'
 import { footer, navLinks } from '../data/content'
-
-function InstagramIcon() {
-  return (
-    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden>
-      <rect x="3" y="3" width="18" height="18" rx="5" stroke="currentColor" strokeWidth="1.6" />
-      <circle cx="12" cy="12" r="4" stroke="currentColor" strokeWidth="1.6" />
-      <circle cx="17.5" cy="6.5" r="1" fill="currentColor" />
-    </svg>
-  )
-}
+import { InstagramQr } from './InstagramQr'
 
 export function Footer() {
   return (
@@ -21,7 +12,7 @@ export function Footer() {
         </svg>
         <div className="footer__grid">
           <div className="footer__col">
-            <h4>Visit</h4>
+            <h4>{footer.visitLabel}</h4>
             {navLinks.map((link) => (
               <Link key={link.to} to={link.to}>
                 {link.label}
@@ -29,17 +20,13 @@ export function Footer() {
             ))}
           </div>
           <div className="footer__col">
-            <h4>Contact</h4>
-            <a href="mailto:hello@yarn.studio">hello@yarn.studio</a>
-            <p>Handmade to order</p>
+            <h4>{footer.contactLabel}</h4>
+            <a href={`mailto:${footer.email}`}>{footer.email}</a>
+            <p>{footer.handmadeNote}</p>
           </div>
-          <div className="footer__col">
-            <h4>Social</h4>
-            <a href="https://instagram.com" target="_blank" rel="noreferrer">
-              <span style={{ display: 'inline-flex', alignItems: 'center', gap: '0.4rem' }}>
-                <InstagramIcon /> Instagram
-              </span>
-            </a>
+          <div className="footer__col footer__col--social">
+            <h4>{footer.socialLabel}</h4>
+            <InstagramQr variant="footer" />
           </div>
         </div>
         <div className="footer__bottom">

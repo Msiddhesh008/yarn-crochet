@@ -5,6 +5,7 @@ import { handmadeNote } from '../data/content'
 import { useCart } from '../context/CartContext'
 import { MagneticButton } from '../components/MagneticButton'
 import { ProductCard } from '../components/ProductCard'
+import { scrollToTop } from '../hooks/useLenis'
 
 export function ProductDetailPage() {
   const { slug } = useParams()
@@ -14,7 +15,7 @@ export function ProductDetailPage() {
 
   useEffect(() => {
     setColor(product?.colors[0])
-    window.scrollTo(0, 0)
+    scrollToTop(true)
   }, [product])
 
   const related = useMemo(() => {

@@ -4,6 +4,7 @@ import { Menu, Search, ShoppingBag, X } from 'lucide-react'
 import { Logo } from './Logo'
 import { navLinks } from '../data/content'
 import { useCart } from '../context/CartContext'
+import { InstagramQr } from './InstagramQr'
 
 interface NavbarProps {
   onSearchOpen: () => void
@@ -92,11 +93,16 @@ export function Navbar({ onSearchOpen }: NavbarProps) {
           >
             <X size={20} />
           </button>
-          {navLinks.map((link) => (
-            <Link key={link.to} to={link.to} onClick={() => setMenuOpen(false)}>
-              {link.label}
-            </Link>
-          ))}
+          <nav className="mobile-menu__links" aria-label="Mobile">
+            {navLinks.map((link) => (
+              <Link key={link.to} to={link.to} onClick={() => setMenuOpen(false)}>
+                {link.label}
+              </Link>
+            ))}
+          </nav>
+          <div className="mobile-menu__qr">
+            <InstagramQr variant="menu" onNavigate={() => setMenuOpen(false)} />
+          </div>
         </div>
       </div>
     </>
