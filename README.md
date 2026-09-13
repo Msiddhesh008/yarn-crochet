@@ -2,6 +2,8 @@
 
 Premium handmade crochet e-commerce frontend.
 
+**Live site:** https://Msiddhesh008.github.io/yarn-crochet/
+
 ## Stack
 
 - React + Vite + TypeScript
@@ -18,9 +20,9 @@ npm install
 npm run dev
 ```
 
-## Build
+## Build & deploy (GitHub Pages)
 
 ```bash
 npm run build
-npm run preview
+npm run deploy
 ```

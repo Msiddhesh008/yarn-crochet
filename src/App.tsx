@@ -1,4 +1,4 @@
-import { BrowserRouter, Routes, Route } from 'react-router-dom'
+import { HashRouter, Routes, Route } from 'react-router-dom'
 import { CartProvider } from './context/CartContext'
 import { MainLayout } from './layouts/MainLayout'
 import { HomePage } from './pages/HomePage'
@@ -10,7 +10,7 @@ import { CustomPage } from './pages/CustomPage'
 export default function App() {
   return (
     <CartProvider>
-      <BrowserRouter>
+      <HashRouter>
         <Routes>
           <Route element={<MainLayout />}>
             <Route index element={<HomePage />} />
@@ -20,7 +20,7 @@ export default function App() {
             <Route path="custom" element={<CustomPage />} />
           </Route>
         </Routes>
-      </BrowserRouter>
+      </HashRouter>
     </CartProvider>
   )
 }
