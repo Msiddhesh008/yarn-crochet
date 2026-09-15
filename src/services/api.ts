@@ -1,7 +1,14 @@
-const API_URL = (import.meta.env.VITE_API_URL as string | undefined)?.replace(
-  /\/$/,
-  '',
-) ?? 'http://localhost:4000'
+function requireApiUrl(): string {
+  const raw = import.meta.env.VITE_API_URL
+  if (typeof raw !== 'string' || !raw.trim()) {
+    throw new Error(
+      'VITE_API_URL is required. Set it in Client/.env (see .env.example).',
+    )
+  }
+  return raw.replace(/\/$/, '')
+}
+
+const API_URL = requireApiUrl()
 
 const TOKEN_KEY = 'yarn-customer:token'
 
@@ -48,7 +55,7 @@ export async function apiRequest<T>(
     if (token) headers.Authorization = `Bearer ${token}`
   }
 
-  const response = await fetch(`${API_URL}${path}`, {
+  const response = await fetch(`${getApiBaseUrl()}${path}`, {
     method: options.method ?? (options.body !== undefined ? 'POST' : 'GET'),
     headers,
     body: options.body !== undefined ? JSON.stringify(options.body) : undefined,
