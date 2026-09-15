@@ -6,6 +6,7 @@ import { MagneticButton } from './MagneticButton'
 import { createHeroTimeline } from '../animations/heroAnimations'
 import { usePrefersReducedMotion } from '../hooks/usePrefersReducedMotion'
 import { keyBlackBackground } from '../utils/keyBlackBackground'
+import bowRose from '../assets/subjects/bow-rose.png'
 
 interface HeroProps {
   ready: boolean
@@ -16,20 +17,31 @@ export function Hero({ ready }: HeroProps) {
   const { hero } = content
   const ref = useRef<HTMLElement>(null)
   const reduced = usePrefersReducedMotion()
-  const [heroSrc, setHeroSrc] = useState(hero.image)
+  const [heroSrc, setHeroSrc] = useState(hero.image || bowRose)
 
   useEffect(() => {
     let cancelled = false
-    setHeroSrc(hero.image)
+    const primary = hero.image?.trim() || bowRose
+    setHeroSrc(primary)
 
-    keyBlackBackground(hero.image)
-      .then((keyed) => {
+    const applyKeyed = async (src: string, allowFallback: boolean) => {
+      try {
+        const keyed = await keyBlackBackground(src)
         if (!cancelled) setHeroSrc(keyed)
-      })
-      .catch((err) => {
+      } catch (err) {
         console.error(err)
-        if (!cancelled) setHeroSrc(hero.image)
-      })
+        if (!cancelled) {
+          if (allowFallback && src !== bowRose) {
+            setHeroSrc(bowRose)
+            await applyKeyed(bowRose, false)
+          } else {
+            setHeroSrc(src)
+          }
+        }
+      }
+    }
+
+    void applyKeyed(primary, true)
 
     return () => {
       cancelled = true
@@ -96,6 +108,9 @@ export function Hero({ ready }: HeroProps) {
               alt="Handmade crochet heart"
               width={660}
               height={775}
+              onError={() => {
+                if (heroSrc !== bowRose) setHeroSrc(bowRose)
+              }}
             />
           </Link>
         </div>
