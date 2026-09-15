@@ -1,12 +1,13 @@
 import { useEffect, useState, type FormEvent } from 'react'
 import { AccountNav } from '../components/AccountNav'
 import { TextField } from '../components/form/FormControls'
+import { ProfileFormSkeleton } from '../components/Skeleton'
 import { useCustomerAuth } from '../context/CustomerAuthContext'
 import { ApiError } from '../services/api'
 import { EMPTY_ADDRESS, type OrderAddress } from '../types/orders'
 
 export function AccountProfilePage() {
-  const { customer, updateProfile } = useCustomerAuth()
+  const { customer, updateProfile, logout } = useCustomerAuth()
   const [name, setName] = useState('')
   const [phone, setPhone] = useState('')
   const [address, setAddress] = useState<OrderAddress>(EMPTY_ADDRESS)
@@ -56,13 +57,16 @@ export function AccountProfilePage() {
         <AccountNav />
       </div>
       <div className="container" style={{ paddingBottom: '4rem', maxWidth: 640 }}>
-        <form className="form-grid" onSubmit={onSubmit}>
+        {!customer ? (
+          <ProfileFormSkeleton />
+        ) : (
+          <form className="form-grid" onSubmit={onSubmit}>
           {error ? <p className="handmade-note">{error}</p> : null}
           {saved ? <p className="section-intro">Profile saved.</p> : null}
           <TextField
             id="profile-email"
             label="Email"
-            value={customer?.email ?? ''}
+            value={customer.email}
             onChange={() => undefined}
             disabled
             hint="Email cannot be changed in this pass"
@@ -139,7 +143,15 @@ export function AccountProfilePage() {
           <button type="submit" className="btn btn--primary" disabled={submitting}>
             {submitting ? 'Saving…' : 'Save profile'}
           </button>
+          <button
+            type="button"
+            className="btn btn--ghost account-profile__sign-out"
+            onClick={() => logout()}
+          >
+            Sign out
+          </button>
         </form>
+        )}
       </div>
     </div>
   )

@@ -10,6 +10,7 @@ import {
   type ShopOrder,
 } from '../types/orders'
 import { DownloadInvoiceButton } from '../components/DownloadInvoiceButton'
+import { OrderDetailSkeleton } from '../components/Skeleton'
 import { completeRazorpayPayment } from '../utils/completeRazorpayPayment'
 import { formatMoney } from '../utils/formatMoney'
 import { mediaUrl } from '../utils/mediaUrl'
@@ -35,13 +36,7 @@ export function AccountOrderDetailPage() {
   }, [id])
 
   if (loading) {
-    return (
-      <div className="page">
-        <div className="container">
-          <p className="section-intro">Loading order…</p>
-        </div>
-      </div>
-    )
+    return <OrderDetailSkeleton />
   }
 
   if (error || !order) {
@@ -96,7 +91,7 @@ export function AccountOrderDetailPage() {
 
   return (
     <div className="page" style={{ paddingTop: 0 }}>
-      <div className="container page-hero">
+      <div className="container page-hero" style={{ maxWidth: 640 }}>
         <p className="eyebrow">Order</p>
         <h1 className="section-heading">Order {order.id.slice(0, 10)}</h1>
         <p className="section-intro">
@@ -105,7 +100,7 @@ export function AccountOrderDetailPage() {
 
         <AccountNav />
       </div>
-      <div className="container" style={{ paddingBottom: '4rem', maxWidth: 720 }}>
+      <div className="container" style={{ paddingBottom: '4rem', maxWidth: 640 }}>
         <OrderStatusStepper status={order.status} />
 
         {needsPayment ? (

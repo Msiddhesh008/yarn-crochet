@@ -2,10 +2,11 @@ import { useEffect, useRef } from 'react'
 import { Link } from 'react-router-dom'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
+import { formatMoney } from '../utils/formatMoney'
 import { useStorefront } from '../context/StorefrontContext'
 import { usePrefersReducedMotion } from '../hooks/usePrefersReducedMotion'
 import { useIsDesktop } from '../hooks/useMediaQuery'
-import { formatMoney } from '../utils/formatMoney'
+import { ShowcaseCardSkeleton } from './Skeleton'
 
 gsap.registerPlugin(ScrollTrigger)
 
@@ -15,12 +16,13 @@ export function ProductShowcase() {
   const trackRef = useRef<HTMLDivElement>(null)
   const reduced = usePrefersReducedMotion()
   const isDesktop = useIsDesktop()
-  const { getFeaturedProducts, content } = useStorefront()
+  const { getFeaturedProducts, content, loading } = useStorefront()
   const { featuredShowcase } = content
   const items = getFeaturedProducts().slice(0, 4)
 
   useEffect(() => {
-    if (!pinRef.current || !trackRef.current || reduced || !isDesktop) return
+    if (loading || !pinRef.current || !trackRef.current || reduced || !isDesktop)
+      return
 
     const ctx = gsap.context(() => {
       const track = trackRef.current
@@ -62,7 +64,7 @@ export function ProductShowcase() {
     }, sectionRef)
 
     return () => ctx.revert()
-  }, [reduced, isDesktop])
+  }, [reduced, isDesktop, loading, items.length])
 
   return (
     <section className="section showcase" ref={sectionRef} id="showcase">
@@ -74,29 +76,34 @@ export function ProductShowcase() {
             <span>{featuredShowcase.subheading}</span>
           </h2>
         </div>
-        <div className="showcase__track" ref={trackRef}>
-          {items.map((product, index) => (
-            <article key={product.id} className="showcase-card">
-              <div className="showcase-card__media">
-                <img
-                  src={product.image}
-                  alt={product.name}
-                  loading="lazy"
-                />
-              </div>
-              <div className="showcase-card__body">
-                <p className="showcase-card__cat">
-                  Product {String(index + 1).padStart(2, '0')} · {product.category}
-                </p>
-                <h3 className="showcase-card__name">{product.name}</h3>
-                <p className="showcase-card__desc">{product.description}</p>
-                <div className="showcase-card__footer">
-                  <span>{formatMoney(product.price)}</span>
-                  <Link to={`/product/${product.slug}`}>View piece →</Link>
-                </div>
-              </div>
-            </article>
-          ))}
+        <div className="showcase__track" ref={trackRef} aria-busy={loading || undefined}>
+          {loading
+            ? Array.from({ length: 3 }, (_, i) => (
+                <ShowcaseCardSkeleton key={i} />
+              ))
+            : items.map((product, index) => (
+                <article key={product.id} className="showcase-card">
+                  <div className="showcase-card__media">
+                    <img
+                      src={product.image}
+                      alt={product.name}
+                      loading="lazy"
+                    />
+                  </div>
+                  <div className="showcase-card__body">
+                    <p className="showcase-card__cat">
+                      Product {String(index + 1).padStart(2, '0')} ·{' '}
+                      {product.category}
+                    </p>
+                    <h3 className="showcase-card__name">{product.name}</h3>
+                    <p className="showcase-card__desc">{product.description}</p>
+                    <div className="showcase-card__footer">
+                      <span>{formatMoney(product.price)}</span>
+                      <Link to={`/product/${product.slug}`}>View piece →</Link>
+                    </div>
+                  </div>
+                </article>
+              ))}
         </div>
       </div>
     </section>

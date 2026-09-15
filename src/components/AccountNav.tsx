@@ -1,9 +1,7 @@
 import { NavLink } from 'react-router-dom'
-import { useCustomerAuth } from '../context/CustomerAuthContext'
 
+/** Account sub-nav: Profile + Orders only (Sign out lives on Profile). */
 export function AccountNav() {
-  const { logout } = useCustomerAuth()
-
   return (
     <nav aria-label="Account">
       <ul className="account-nav">
@@ -18,15 +16,11 @@ export function AccountNav() {
         <li>
           <NavLink
             to="/account/orders"
+            end={false}
             className={({ isActive }) => (isActive ? 'is-active' : undefined)}
           >
             Orders
           </NavLink>
-        </li>
-        <li>
-          <button type="button" onClick={logout}>
-            Sign out
-          </button>
         </li>
       </ul>
     </nav>

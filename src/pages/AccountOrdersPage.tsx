@@ -8,6 +8,7 @@ import {
 import { apiRequest } from '../services/api'
 import type { ShopOrder } from '../types/orders'
 import { DownloadInvoiceButton } from '../components/DownloadInvoiceButton'
+import { OrderCardSkeleton } from '../components/Skeleton'
 import { useCustomerAuth } from '../context/CustomerAuthContext'
 import { mediaUrl } from '../utils/mediaUrl'
 import { formatMoney } from '../utils/formatMoney'
@@ -30,7 +31,7 @@ export function AccountOrdersPage() {
 
   return (
     <div className="page" style={{ paddingTop: 0 }}>
-      <div className="container page-hero">
+      <div className="container page-hero" style={{ maxWidth: 640 }}>
         <p className="eyebrow">Account</p>
         <h1 className="section-heading">My orders</h1>
         <p className="section-intro">
@@ -38,14 +39,21 @@ export function AccountOrdersPage() {
         </p>
         <AccountNav />
       </div>
-      <div className="container" style={{ paddingBottom: '4rem' }}>
-        {loading ? <p className="section-intro">Loading orders…</p> : null}
+      <div className="container" style={{ paddingBottom: '4rem', maxWidth: 640 }}>
         {error ? <p className="handmade-note">{error}</p> : null}
+        {loading ? (
+          <div className="account-order-list" aria-busy="true" aria-label="Loading orders">
+            <OrderCardSkeleton />
+            <OrderCardSkeleton />
+            <OrderCardSkeleton />
+          </div>
+        ) : null}
         {!loading && !error && orders.length === 0 ? (
           <p className="section-intro">
             No orders yet. <Link to="/shop">Browse the collection</Link>
           </p>
         ) : null}
+        {!loading ? (
         <div className="account-order-list">
           {orders.map((order) => {
             const thumbs = order.items.slice(0, 3)
@@ -104,6 +112,7 @@ export function AccountOrdersPage() {
             )
           })}
         </div>
+        ) : null}
       </div>
     </div>
   )

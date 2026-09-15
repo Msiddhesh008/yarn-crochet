@@ -4,12 +4,13 @@ import { useStorefront } from '../context/StorefrontContext'
 import { useCart } from '../context/CartContext'
 import { MagneticButton } from '../components/MagneticButton'
 import { ProductCard } from '../components/ProductCard'
+import { ProductDetailSkeleton } from '../components/Skeleton'
 import { scrollToTop } from '../hooks/useLenis'
 import { formatMoney } from '../utils/formatMoney'
 
 export function ProductDetailPage() {
   const { slug } = useParams()
-  const { products, getProductBySlug, content } = useStorefront()
+  const { products, getProductBySlug, content, loading } = useStorefront()
   const product = slug ? getProductBySlug(slug) : undefined
   const { handmadeNote } = content
   const { addItem } = useCart()
@@ -34,6 +35,10 @@ export function ProductDetailPage() {
       )
       .slice(0, 3)
   }, [product, products])
+
+  if (loading && !product) {
+    return <ProductDetailSkeleton />
+  }
 
   if (!product) {
     return (

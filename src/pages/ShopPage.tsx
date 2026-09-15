@@ -1,6 +1,7 @@
 import { useMemo, useState } from 'react'
 import { useStorefront } from '../context/StorefrontContext'
 import { ProductCard } from '../components/ProductCard'
+import { ProductCardSkeleton } from '../components/Skeleton'
 import type { ProductCategory } from '../types'
 
 const categories: Array<'All' | ProductCategory> = [
@@ -15,7 +16,7 @@ const categories: Array<'All' | ProductCategory> = [
 
 export function ShopPage() {
   const [filter, setFilter] = useState<(typeof categories)[number]>('All')
-  const { products, content } = useStorefront()
+  const { products, content, loading } = useStorefront()
   const { shopPage } = content
 
   const filtered = useMemo(() => {
@@ -42,15 +43,22 @@ export function ShopPage() {
               role="tab"
               aria-selected={filter === cat}
               onClick={() => setFilter(cat)}
+              disabled={loading}
             >
               {cat}
             </button>
           ))}
         </div>
-        <div className="shop-grid" style={{ marginTop: '2rem' }}>
-          {filtered.map((product) => (
-            <ProductCard key={product.id} product={product} />
-          ))}
+        <div
+          className="shop-grid"
+          style={{ marginTop: '2rem' }}
+          aria-busy={loading || undefined}
+        >
+          {loading
+            ? Array.from({ length: 8 }, (_, i) => <ProductCardSkeleton key={i} />)
+            : filtered.map((product) => (
+                <ProductCard key={product.id} product={product} />
+              ))}
         </div>
       </div>
     </div>
