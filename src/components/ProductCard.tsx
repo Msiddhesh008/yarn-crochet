@@ -1,5 +1,6 @@
 import { useNavigate } from 'react-router-dom'
 import type { Product } from '../types'
+import { formatMoney } from '../utils/formatMoney'
 
 interface ProductCardProps {
   product: Product
@@ -30,7 +31,7 @@ export function ProductCard({ product }: ProductCardProps) {
         <p className="product-card__category">{product.category}</p>
         <h3 className="product-card__name">{product.name}</h3>
         <div className="product-card__row">
-          <span>${product.price}</span>
+          <span>{formatMoney(product.price)}</span>
           <span>View piece →</span>
         </div>
       </div>

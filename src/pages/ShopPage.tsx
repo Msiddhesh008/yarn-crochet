@@ -1,6 +1,5 @@
 import { useMemo, useState } from 'react'
-import { products } from '../data/products'
-import { shopPage } from '../data/content'
+import { useStorefront } from '../context/StorefrontContext'
 import { ProductCard } from '../components/ProductCard'
 import type { ProductCategory } from '../types'
 
@@ -16,11 +15,13 @@ const categories: Array<'All' | ProductCategory> = [
 
 export function ShopPage() {
   const [filter, setFilter] = useState<(typeof categories)[number]>('All')
+  const { products, content } = useStorefront()
+  const { shopPage } = content
 
   const filtered = useMemo(() => {
     if (filter === 'All') return products
     return products.filter((p) => p.category === filter)
-  }, [filter])
+  }, [filter, products])
 
   return (
     <div className="page" style={{ paddingTop: 0 }}>
@@ -38,13 +39,15 @@ export function ShopPage() {
               key={cat}
               type="button"
               className={`filter-chip${filter === cat ? ' is-active' : ''}`}
+              role="tab"
+              aria-selected={filter === cat}
               onClick={() => setFilter(cat)}
             >
               {cat}
             </button>
           ))}
         </div>
-        <div className="shop-grid">
+        <div className="shop-grid" style={{ marginTop: '2rem' }}>
           {filtered.map((product) => (
             <ProductCard key={product.id} product={product} />
           ))}

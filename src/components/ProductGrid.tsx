@@ -1,5 +1,4 @@
-import { getCollectionProducts } from '../data/products'
-import { getSiteContent } from '../data/content'
+import { useStorefront } from '../context/StorefrontContext'
 import { ProductCard } from './ProductCard'
 
 interface ProductGridProps {
@@ -8,7 +7,8 @@ interface ProductGridProps {
 }
 
 export function ProductGrid({ limit = 6, asymmetric = true }: ProductGridProps) {
-  const { collection } = getSiteContent()
+  const { content, getCollectionProducts } = useStorefront()
+  const { collection } = content
   const items = getCollectionProducts().slice(0, limit)
 
   return (

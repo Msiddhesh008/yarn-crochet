@@ -1,4 +1,4 @@
-import { instagram } from '../data/content'
+import { useStorefront } from '../context/StorefrontContext'
 
 interface InstagramQrProps {
   variant?: 'footer' | 'menu'
@@ -6,6 +6,7 @@ interface InstagramQrProps {
 }
 
 export function InstagramQr({ variant = 'footer', onNavigate }: InstagramQrProps) {
+  const { instagram } = useStorefront().content
   return (
     <a
       className={`instagram-qr instagram-qr--${variant}`}

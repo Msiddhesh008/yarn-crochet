@@ -1,9 +1,10 @@
 import { useEffect, useState } from 'react'
 import { Link, NavLink } from 'react-router-dom'
-import { Menu, Search, ShoppingBag, X } from 'lucide-react'
+import { Menu, Search, ShoppingBag, User, X } from 'lucide-react'
 import { Logo } from './Logo'
 import { navLinks } from '../data/content'
 import { useCart } from '../context/CartContext'
+import { useCustomerAuth } from '../context/CustomerAuthContext'
 import { InstagramQr } from './InstagramQr'
 
 interface NavbarProps {
@@ -14,6 +15,7 @@ export function Navbar({ onSearchOpen }: NavbarProps) {
   const [scrolled, setScrolled] = useState(false)
   const [menuOpen, setMenuOpen] = useState(false)
   const { count, setIsOpen } = useCart()
+  const { isAuthenticated, customer, logout } = useCustomerAuth()
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 40)
@@ -54,6 +56,19 @@ export function Navbar({ onSearchOpen }: NavbarProps) {
             >
               <Search size={18} />
             </button>
+            {isAuthenticated ? (
+              <Link
+                to="/account/profile"
+                className="icon-btn"
+                aria-label={`Account for ${customer?.name ?? 'you'}`}
+              >
+                <User size={18} />
+              </Link>
+            ) : (
+              <Link to="/login" className="icon-btn" aria-label="Sign in">
+                <User size={18} />
+              </Link>
+            )}
             <button
               type="button"
               className="icon-btn"
@@ -99,6 +114,34 @@ export function Navbar({ onSearchOpen }: NavbarProps) {
                 {link.label}
               </Link>
             ))}
+            {isAuthenticated ? (
+              <>
+                <Link to="/account/profile" onClick={() => setMenuOpen(false)}>
+                  Profile
+                </Link>
+                <Link to="/account/orders" onClick={() => setMenuOpen(false)}>
+                  My orders
+                </Link>
+                <button
+                  type="button"
+                  onClick={() => {
+                    logout()
+                    setMenuOpen(false)
+                  }}
+                >
+                  Sign out
+                </button>
+              </>
+            ) : (
+              <>
+                <Link to="/login" onClick={() => setMenuOpen(false)}>
+                  Sign in
+                </Link>
+                <Link to="/register" onClick={() => setMenuOpen(false)}>
+                  Create account
+                </Link>
+              </>
+            )}
           </nav>
           <div className="mobile-menu__qr">
             <InstagramQr variant="menu" onNavigate={() => setMenuOpen(false)} />

@@ -11,6 +11,7 @@ interface MagneticButtonProps {
   variant?: 'primary' | 'ghost' | 'unravel'
   type?: 'button' | 'submit'
   className?: string
+  disabled?: boolean
 }
 
 export function MagneticButton({
@@ -21,6 +22,7 @@ export function MagneticButton({
   variant = 'primary',
   type = 'button',
   className = '',
+  disabled = false,
 }: MagneticButtonProps) {
   const ref = useRef<HTMLAnchorElement | HTMLButtonElement>(null)
 
@@ -64,6 +66,7 @@ export function MagneticButton({
       type={type}
       onClick={onClick}
       className={classes}
+      disabled={disabled}
     >
       {content}
     </button>

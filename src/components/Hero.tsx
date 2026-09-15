@@ -1,18 +1,40 @@
-import { useEffect, useRef } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { Link } from 'react-router-dom'
 import gsap from 'gsap'
-import { hero } from '../data/content'
+import { useStorefront } from '../context/StorefrontContext'
 import { MagneticButton } from './MagneticButton'
 import { createHeroTimeline } from '../animations/heroAnimations'
 import { usePrefersReducedMotion } from '../hooks/usePrefersReducedMotion'
+import { keyBlackBackground } from '../utils/keyBlackBackground'
 
 interface HeroProps {
   ready: boolean
 }
 
 export function Hero({ ready }: HeroProps) {
+  const { content } = useStorefront()
+  const { hero } = content
   const ref = useRef<HTMLElement>(null)
   const reduced = usePrefersReducedMotion()
+  const [heroSrc, setHeroSrc] = useState(hero.image)
+
+  useEffect(() => {
+    let cancelled = false
+    setHeroSrc(hero.image)
+
+    keyBlackBackground(hero.image)
+      .then((keyed) => {
+        if (!cancelled) setHeroSrc(keyed)
+      })
+      .catch((err) => {
+        console.error(err)
+        if (!cancelled) setHeroSrc(hero.image)
+      })
+
+    return () => {
+      cancelled = true
+    }
+  }, [hero.image])
 
   useEffect(() => {
     if (!ready || !ref.current) return
@@ -70,7 +92,7 @@ export function Hero({ ready }: HeroProps) {
           <div className="hero__floater hero__floater--3" />
           <Link to="/shop" className="hero__media" data-cursor="loop">
             <img
-              src={hero.image}
+              src={heroSrc}
               alt="Handmade crochet heart"
               width={660}
               height={775}

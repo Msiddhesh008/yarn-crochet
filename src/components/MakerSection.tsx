@@ -1,6 +1,7 @@
-import { maker } from '../data/content'
+import { useStorefront } from '../context/StorefrontContext'
 
 export function MakerSection() {
+  const { maker } = useStorefront().content
   return (
     <section className="section maker" id="maker">
       <div className="container split maker__layout">

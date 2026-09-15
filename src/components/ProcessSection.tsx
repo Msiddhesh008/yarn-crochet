@@ -1,7 +1,7 @@
 import { useEffect, useRef } from 'react'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
-import { process as processCopy } from '../data/content'
+import { useStorefront } from '../context/StorefrontContext'
 import { subjects } from '../data/subjects'
 import type { ProcessVisual } from '../types'
 import { usePrefersReducedMotion } from '../hooks/usePrefersReducedMotion'
@@ -110,6 +110,7 @@ function ProcessVisualMark({
 export function ProcessSection() {
   const ref = useRef<HTMLElement>(null)
   const reduced = usePrefersReducedMotion()
+  const processCopy = useStorefront().content.process
 
   useEffect(() => {
     if (!ref.current || reduced) {

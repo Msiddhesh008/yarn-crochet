@@ -1,8 +1,19 @@
+import { Link } from 'react-router-dom'
 import { X } from 'lucide-react'
+import { CartQtyStepper } from './CartQtyStepper'
 import { useCart } from '../context/CartContext'
+import { useCustomerAuth } from '../context/CustomerAuthContext'
+import { formatMoney } from '../utils/formatMoney'
 
 export function CartDrawer() {
-  const { items, isOpen, setIsOpen, removeItem, clear, count } = useCart()
+  const { items, isOpen, setIsOpen, removeItem, updateQuantity, clear, count } =
+    useCart()
+  const { isAuthenticated } = useCustomerAuth()
+
+  const total = items.reduce(
+    (sum, item) => sum + item.product.price * item.quantity,
+    0,
+  )
 
   return (
     <>
@@ -40,13 +51,20 @@ export function CartDrawer() {
                   <img src={item.product.image} alt="" />
                   <div>
                     <strong>{item.product.name}</strong>
-                    <p style={{ margin: '0.25rem 0', color: 'var(--color-ink-soft)' }}>
-                      Qty {item.quantity} · ${item.product.price}
+                    <p className="cart-item__price">
+                      {formatMoney(item.product.price)} each
                     </p>
+                    <CartQtyStepper
+                      quantity={item.quantity}
+                      label={`Quantity for ${item.product.name}`}
+                      onChange={(quantity) =>
+                        updateQuantity(item.product.id, quantity)
+                      }
+                    />
                     <button
                       type="button"
                       onClick={() => removeItem(item.product.id)}
-                      style={{ color: 'var(--color-terracotta)', fontSize: '0.85rem' }}
+                      className="cart-item__remove"
                     >
                       Remove
                     </button>
@@ -54,10 +72,22 @@ export function CartDrawer() {
                 </div>
               ))}
             </div>
+            <p style={{ marginTop: '1rem', fontWeight: 600 }}>
+              Total {formatMoney(total)}
+            </p>
+            <Link
+              to={isAuthenticated ? '/checkout' : '/login'}
+              state={isAuthenticated ? undefined : { from: '/checkout' }}
+              className="btn btn--primary"
+              style={{ marginTop: '0.75rem', display: 'inline-flex' }}
+              onClick={() => setIsOpen(false)}
+            >
+              {isAuthenticated ? 'Checkout' : 'Sign in to checkout'}
+            </Link>
             <button
               type="button"
               className="btn btn--ghost"
-              style={{ marginTop: '1rem' }}
+              style={{ marginTop: '0.5rem' }}
               onClick={clear}
             >
               Clear cart

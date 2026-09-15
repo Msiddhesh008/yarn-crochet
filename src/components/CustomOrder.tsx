@@ -1,6 +1,6 @@
 import { useState, type FormEvent } from 'react'
 import { X } from 'lucide-react'
-import { customOrder } from '../data/content'
+import { useStorefront } from '../context/StorefrontContext'
 import { MagneticButton } from './MagneticButton'
 import type { CustomOrderForm } from '../types'
 
@@ -12,18 +12,31 @@ const emptyForm: CustomOrderForm = {
 }
 
 export function CustomOrder() {
+  const { content, submitCustomRequest } = useStorefront()
+  const { customOrder } = content
   const [open, setOpen] = useState(false)
   const [form, setForm] = useState<CustomOrderForm>(emptyForm)
   const [submitted, setSubmitted] = useState(false)
+  const [submitting, setSubmitting] = useState(false)
+  const [error, setError] = useState('')
 
   const onSubmit = (e: FormEvent) => {
     e.preventDefault()
-    setSubmitted(true)
-    setTimeout(() => {
-      setOpen(false)
-      setSubmitted(false)
-      setForm(emptyForm)
-    }, 1600)
+    setSubmitting(true)
+    setError('')
+    submitCustomRequest(form)
+      .then(() => {
+        setSubmitted(true)
+        window.setTimeout(() => {
+          setOpen(false)
+          setSubmitted(false)
+          setForm(emptyForm)
+        }, 1600)
+      })
+      .catch((err: unknown) => {
+        setError(err instanceof Error ? err.message : 'Could not send request')
+      })
+      .finally(() => setSubmitting(false))
   }
 
   return (
@@ -70,9 +83,15 @@ export function CustomOrder() {
               Tell us your idea
             </h3>
             {submitted ? (
-              <p className="handmade-note">Thank you — we&apos;ll stitch it into something wonderful.</p>
+              <p className="handmade-note">
+                Thank you — we&apos;ll stitch it into something wonderful.
+              </p>
             ) : (
-              <form className="form-grid" onSubmit={onSubmit} style={{ marginTop: '1.25rem' }}>
+              <form
+                className="form-grid"
+                onSubmit={onSubmit}
+                style={{ marginTop: '1.25rem' }}
+              >
                 <div className="field">
                   <label htmlFor="custom-name">Name</label>
                   <input
@@ -96,7 +115,9 @@ export function CustomOrder() {
                   <input
                     id="custom-colours"
                     value={form.colours}
-                    onChange={(e) => setForm({ ...form, colours: e.target.value })}
+                    onChange={(e) =>
+                      setForm({ ...form, colours: e.target.value })
+                    }
                   />
                 </div>
                 <div className="field">
@@ -104,13 +125,15 @@ export function CustomOrder() {
                   <textarea
                     id="custom-message"
                     value={form.message}
-                    onChange={(e) => setForm({ ...form, message: e.target.value })}
+                    onChange={(e) =>
+                      setForm({ ...form, message: e.target.value })
+                    }
                   />
                 </div>
-                <div className="image-placeholder" aria-hidden>
-                  Reference image placeholder
-                </div>
-                <MagneticButton type="submit">Send request</MagneticButton>
+                {error ? <p className="handmade-note">{error}</p> : null}
+                <MagneticButton type="submit" disabled={submitting}>
+                  {submitting ? 'Sending…' : 'Send request'}
+                </MagneticButton>
               </form>
             )}
           </div>

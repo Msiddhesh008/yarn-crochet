@@ -1,7 +1,8 @@
 import { CustomOrder } from '../components/CustomOrder'
-import { customPage } from '../data/content'
+import { useStorefront } from '../context/StorefrontContext'
 
 export function CustomPage() {
+  const { customPage } = useStorefront().content
   return (
     <div className="page" style={{ paddingTop: 0 }}>
       <div className="container page-hero">

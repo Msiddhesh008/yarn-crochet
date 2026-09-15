@@ -1,8 +1,10 @@
 import { Link } from 'react-router-dom'
-import { footer, navLinks } from '../data/content'
+import { navLinks } from '../data/content'
+import { useStorefront } from '../context/StorefrontContext'
 import { InstagramQr } from './InstagramQr'
 
 export function Footer() {
+  const { footer } = useStorefront().content
   return (
     <footer className="footer">
       <div className="container">

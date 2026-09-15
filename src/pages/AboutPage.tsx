@@ -2,9 +2,10 @@ import { MakerSection } from '../components/MakerSection'
 import { StorySection } from '../components/StorySection'
 import { ProcessSection } from '../components/ProcessSection'
 import { MagneticButton } from '../components/MagneticButton'
-import { aboutPage } from '../data/content'
+import { useStorefront } from '../context/StorefrontContext'
 
 export function AboutPage() {
+  const { aboutPage } = useStorefront().content
   return (
     <div className="page" style={{ paddingTop: 0 }}>
       <div className="container page-hero">

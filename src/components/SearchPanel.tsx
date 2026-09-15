@@ -1,7 +1,8 @@
 import { useMemo, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { X } from 'lucide-react'
-import { products } from '../data/products'
+import { useStorefront } from '../context/StorefrontContext'
+import { formatMoney } from '../utils/formatMoney'
 
 interface SearchPanelProps {
   open: boolean
@@ -10,6 +11,7 @@ interface SearchPanelProps {
 
 export function SearchPanel({ open, onClose }: SearchPanelProps) {
   const [query, setQuery] = useState('')
+  const { products } = useStorefront()
 
   const results = useMemo(() => {
     const q = query.trim().toLowerCase()
@@ -20,7 +22,7 @@ export function SearchPanel({ open, onClose }: SearchPanelProps) {
         p.category.toLowerCase().includes(q) ||
         p.description.toLowerCase().includes(q),
     )
-  }, [query])
+  }, [query, products])
 
   return (
     <div className={`search-panel${open ? ' is-open' : ''}`} role="search">
@@ -52,7 +54,7 @@ export function SearchPanel({ open, onClose }: SearchPanelProps) {
             <div>
               <strong>{product.name}</strong>
               <p style={{ margin: 0, color: 'var(--color-ink-soft)', fontSize: '0.85rem' }}>
-                {product.category} · ${product.price}
+                {product.category} · {formatMoney(product.price)}
               </p>
             </div>
           </Link>

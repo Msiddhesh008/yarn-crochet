@@ -1,6 +1,7 @@
-import { gallery } from '../data/content'
+import { useStorefront } from '../context/StorefrontContext'
 
 export function Gallery() {
+  const { gallery } = useStorefront().content
   return (
     <section className="section" id="gallery">
       <div className="container">

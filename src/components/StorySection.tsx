@@ -1,7 +1,7 @@
 import { useEffect, useRef } from 'react'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
-import { stitchStory } from '../data/content'
+import { useStorefront } from '../context/StorefrontContext'
 import { usePrefersReducedMotion } from '../hooks/usePrefersReducedMotion'
 
 gsap.registerPlugin(ScrollTrigger)
@@ -10,6 +10,7 @@ export function StorySection() {
   const sectionRef = useRef<HTMLElement>(null)
   const pathRef = useRef<SVGPathElement>(null)
   const reduced = usePrefersReducedMotion()
+  const { stitchStory } = useStorefront().content
 
   useEffect(() => {
     if (!sectionRef.current) return

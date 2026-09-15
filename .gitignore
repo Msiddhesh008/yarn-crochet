@@ -27,3 +27,8 @@ dist-ssr
 # Vite cache
 .vite
 node_modules/.vite
+
+# Env (never commit secrets)
+.env
+.env.*
+!.env.example

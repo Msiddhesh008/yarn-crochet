@@ -1,7 +1,8 @@
 import { Link } from 'react-router-dom'
-import { brand } from '../data/content'
+import { useStorefront } from '../context/StorefrontContext'
 
 export function Logo() {
+  const { brand } = useStorefront().content
   return (
     <Link to="/" className="logo" aria-label={`${brand.name} home`}>
       <img

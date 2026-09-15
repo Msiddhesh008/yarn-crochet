@@ -1,10 +1,11 @@
-import { brand } from '../data/content'
+import { useStorefront } from '../context/StorefrontContext'
 
 interface LoaderProps {
   done: boolean
 }
 
 export function Loader({ done }: LoaderProps) {
+  const { brand } = useStorefront().content
   return (
     <div className={`loader${done ? ' is-done' : ''}`} aria-hidden={done}>
       <div className="loader__inner">

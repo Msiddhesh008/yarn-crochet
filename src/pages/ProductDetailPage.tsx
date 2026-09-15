@@ -1,15 +1,17 @@
 import { useEffect, useMemo, useState } from 'react'
 import { Link, useParams } from 'react-router-dom'
-import { getProductBySlug, products } from '../data/products'
-import { handmadeNote } from '../data/content'
+import { useStorefront } from '../context/StorefrontContext'
 import { useCart } from '../context/CartContext'
 import { MagneticButton } from '../components/MagneticButton'
 import { ProductCard } from '../components/ProductCard'
 import { scrollToTop } from '../hooks/useLenis'
+import { formatMoney } from '../utils/formatMoney'
 
 export function ProductDetailPage() {
   const { slug } = useParams()
+  const { products, getProductBySlug, content } = useStorefront()
   const product = slug ? getProductBySlug(slug) : undefined
+  const { handmadeNote } = content
   const { addItem } = useCart()
   const [color, setColor] = useState<string | undefined>()
 
@@ -31,7 +33,7 @@ export function ProductDetailPage() {
         ),
       )
       .slice(0, 3)
-  }, [product])
+  }, [product, products])
 
   if (!product) {
     return (
@@ -56,7 +58,7 @@ export function ProductDetailPage() {
         <div className="product-detail__info">
           <p className="eyebrow">{product.category}</p>
           <h1 className="product-detail__title">{product.name}</h1>
-          <p className="product-detail__price">${product.price}</p>
+          <p className="product-detail__price">{formatMoney(product.price)}</p>
           <p className="product-detail__desc">{product.description}</p>
           <p className="product-detail__label">Available colours</p>
           <div className="color-swatches">
@@ -86,7 +88,10 @@ export function ProductDetailPage() {
       {related.length > 0 ? (
         <div className="container product-related">
           <p className="eyebrow">You may also love</p>
-          <h2 className="section-heading" style={{ fontSize: 'clamp(2rem, 4vw, 3rem)' }}>
+          <h2
+            className="section-heading"
+            style={{ fontSize: 'clamp(2rem, 4vw, 3rem)' }}
+          >
             More little loops
           </h2>
           <div className="shop-grid product-related__grid">

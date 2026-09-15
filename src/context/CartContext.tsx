@@ -13,6 +13,7 @@ interface CartContextValue {
   count: number
   addItem: (product: Product, color?: string) => void
   removeItem: (productId: string) => void
+  updateQuantity: (productId: string, quantity: number) => void
   clear: () => void
   isOpen: boolean
   setIsOpen: (open: boolean) => void
@@ -55,7 +56,6 @@ export function CartProvider({ children }: { children: ReactNode }) {
       } else {
         persist([...items, { product, quantity: 1, color }])
       }
-      setIsOpen(true)
     },
     [items, persist],
   )
@@ -63,6 +63,21 @@ export function CartProvider({ children }: { children: ReactNode }) {
   const removeItem = useCallback(
     (productId: string) => {
       persist(items.filter((i) => i.product.id !== productId))
+    },
+    [items, persist],
+  )
+
+  const updateQuantity = useCallback(
+    (productId: string, quantity: number) => {
+      if (quantity <= 0) {
+        persist(items.filter((i) => i.product.id !== productId))
+        return
+      }
+      persist(
+        items.map((i) =>
+          i.product.id === productId ? { ...i, quantity } : i,
+        ),
+      )
     },
     [items, persist],
   )
@@ -80,11 +95,12 @@ export function CartProvider({ children }: { children: ReactNode }) {
       count,
       addItem,
       removeItem,
+      updateQuantity,
       clear,
       isOpen,
       setIsOpen,
     }),
-    [items, count, addItem, removeItem, clear, isOpen],
+    [items, count, addItem, removeItem, updateQuantity, clear, isOpen],
   )
 
   return <CartContext.Provider value={value}>{children}</CartContext.Provider>

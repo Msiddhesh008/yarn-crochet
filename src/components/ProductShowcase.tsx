@@ -2,10 +2,10 @@ import { useEffect, useRef } from 'react'
 import { Link } from 'react-router-dom'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
-import { getFeaturedProducts } from '../data/products'
-import { featuredShowcase } from '../data/content'
+import { useStorefront } from '../context/StorefrontContext'
 import { usePrefersReducedMotion } from '../hooks/usePrefersReducedMotion'
 import { useIsDesktop } from '../hooks/useMediaQuery'
+import { formatMoney } from '../utils/formatMoney'
 
 gsap.registerPlugin(ScrollTrigger)
 
@@ -15,6 +15,8 @@ export function ProductShowcase() {
   const trackRef = useRef<HTMLDivElement>(null)
   const reduced = usePrefersReducedMotion()
   const isDesktop = useIsDesktop()
+  const { getFeaturedProducts, content } = useStorefront()
+  const { featuredShowcase } = content
   const items = getFeaturedProducts().slice(0, 4)
 
   useEffect(() => {
@@ -89,7 +91,7 @@ export function ProductShowcase() {
                 <h3 className="showcase-card__name">{product.name}</h3>
                 <p className="showcase-card__desc">{product.description}</p>
                 <div className="showcase-card__footer">
-                  <span>${product.price}</span>
+                  <span>{formatMoney(product.price)}</span>
                   <Link to={`/product/${product.slug}`}>View piece →</Link>
                 </div>
               </div>

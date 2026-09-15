@@ -1,7 +1,7 @@
 import { useEffect, useRef } from 'react'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
-import { testimonials } from '../data/content'
+import { useStorefront } from '../context/StorefrontContext'
 import { usePrefersReducedMotion } from '../hooks/usePrefersReducedMotion'
 
 gsap.registerPlugin(ScrollTrigger)
@@ -9,6 +9,7 @@ gsap.registerPlugin(ScrollTrigger)
 export function Testimonials() {
   const ref = useRef<HTMLElement>(null)
   const reduced = usePrefersReducedMotion()
+  const { testimonials } = useStorefront().content
 
   useEffect(() => {
     if (!ref.current || reduced) return
