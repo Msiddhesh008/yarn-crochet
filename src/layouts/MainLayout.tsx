@@ -3,7 +3,7 @@ import { Outlet, useLocation } from 'react-router-dom'
 import { Navbar } from '../components/Navbar'
 import { Footer } from '../components/Footer'
 import { Loader } from '../components/Loader'
-import { YarnTrail } from '../components/YarnTrail'
+// import { YarnTrail } from '../components/YarnTrail'
 import { CartDrawer } from '../components/CartDrawer'
 import { SearchPanel } from '../components/SearchPanel'
 import { useLenis, scrollToTop } from '../hooks/useLenis'
@@ -45,7 +45,7 @@ export function MainLayout() {
   return (
     <>
       <Loader done={loaderDone} />
-      <YarnTrail />
+      {/* <YarnTrail /> */}
       <Navbar onSearchOpen={() => setSearchOpen(true)} />
       <SearchPanel open={searchOpen} onClose={() => setSearchOpen(false)} />
       <CartDrawer />
