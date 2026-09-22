@@ -3,7 +3,7 @@ import { Link, useParams } from 'react-router-dom'
 import { useStorefront } from '../context/StorefrontContext'
 import { useCart } from '../context/CartContext'
 import { MagneticButton } from '../components/MagneticButton'
-import { ProductCard } from '../components/ProductCard'
+import { ProductImageGallery } from '../components/ProductImageGallery'
 import { ProductDetailSkeleton } from '../components/Skeleton'
 import { scrollToTop } from '../hooks/useLenis'
 import { formatMoney } from '../utils/formatMoney'
@@ -58,7 +58,14 @@ export function ProductDetailPage() {
     <div className="page">
       <div className="container product-detail">
         <div className="product-detail__media">
-          <img src={product.image} alt={product.name} />
+          <ProductImageGallery
+            images={
+              product.images && product.images.length
+                ? product.images
+                : [product.image]
+            }
+            alt={product.name}
+          />
         </div>
         <div className="product-detail__info">
           <p className="eyebrow">{product.category}</p>

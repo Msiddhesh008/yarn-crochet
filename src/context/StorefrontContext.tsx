@@ -28,9 +28,18 @@ interface StorefrontContextValue {
 const StorefrontContext = createContext<StorefrontContextValue | null>(null)
 
 function normalizeProduct(product: Product & { status?: string }): Product {
+  const rawImages =
+    product.images && product.images.length > 0
+      ? product.images
+      : product.image
+        ? [product.image]
+        : []
+  const images = rawImages.map((src) => mediaUrl(src)).filter(Boolean)
+  const image = images[0] ?? mediaUrl(product.image)
   return {
     ...product,
-    image: mediaUrl(product.image),
+    image,
+    images,
   }
 }
 

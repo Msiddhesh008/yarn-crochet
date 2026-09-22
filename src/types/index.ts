@@ -14,6 +14,8 @@ export interface Product {
   price: number
   description: string
   image: string
+  /** Ordered gallery URLs; first is cover (`image`). */
+  images?: string[]
   colors: string[]
   featured: boolean
   showInCollection: boolean
