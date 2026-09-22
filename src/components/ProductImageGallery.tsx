@@ -9,7 +9,7 @@ const ZOOM = 2.25
 const LENS = 140
 
 /**
- * Product PDP gallery: thumbnails + desktop hover lens/zoom (Blinkit-style).
+ * Product PDP gallery: left thumbnails + desktop hover lens/zoom.
  */
 export function ProductImageGallery({ images, alt }: ProductImageGalleryProps) {
   const list = images.length ? images : []
@@ -64,27 +64,51 @@ export function ProductImageGallery({ images, alt }: ProductImageGalleryProps) {
   const bgX = (lens.x / Math.max(stageW - LENS, 1)) * 100
   const bgY = (lens.y / Math.max(stageH - LENS, 1)) * 100
 
+  const thumbs =
+    list.length > 1 ? (
+      <div className="product-gallery__thumbs" role="list">
+        {list.map((thumb, index) => (
+          <button
+            key={`${thumb}-${index}`}
+            type="button"
+            role="listitem"
+            className={`product-gallery__thumb${index === active ? ' is-active' : ''}`}
+            onClick={() => setActive(index)}
+            aria-label={`View image ${index + 1}`}
+            aria-current={index === active ? 'true' : undefined}
+          >
+            <img src={thumb} alt="" />
+          </button>
+        ))}
+      </div>
+    ) : null
+
   return (
-    <div className="product-gallery">
-      <div
-        ref={stageRef}
-        className={`product-gallery__stage${hovering && canZoom ? ' is-zooming' : ''}`}
-        onMouseMove={onMove}
-        onMouseEnter={() => canZoom && setHovering(true)}
-        onMouseLeave={() => setHovering(false)}
-      >
-        <img src={src} alt={alt} />
-        {canZoom && hovering ? (
-          <div
-            className="product-gallery__lens"
-            style={{
-              width: LENS,
-              height: LENS,
-              transform: `translate(${lens.x}px, ${lens.y}px)`,
-            }}
-            aria-hidden
-          />
-        ) : null}
+    <div
+      className={`product-gallery${hovering && canZoom ? ' is-zooming' : ''}`}
+    >
+      <div className="product-gallery__layout">
+        {thumbs}
+        <div
+          ref={stageRef}
+          className={`product-gallery__stage${hovering && canZoom ? ' is-zooming' : ''}`}
+          onMouseMove={onMove}
+          onMouseEnter={() => canZoom && setHovering(true)}
+          onMouseLeave={() => setHovering(false)}
+        >
+          <img src={src} alt={alt} />
+          {canZoom && hovering ? (
+            <div
+              className="product-gallery__lens"
+              style={{
+                width: LENS,
+                height: LENS,
+                transform: `translate(${lens.x}px, ${lens.y}px)`,
+              }}
+              aria-hidden
+            />
+          ) : null}
+        </div>
       </div>
 
       <div
@@ -100,24 +124,6 @@ export function ProductImageGallery({ images, alt }: ProductImageGalleryProps) {
         }
         aria-hidden
       />
-
-      {list.length > 1 ? (
-        <div className="product-gallery__thumbs" role="list">
-          {list.map((thumb, index) => (
-            <button
-              key={`${thumb}-${index}`}
-              type="button"
-              role="listitem"
-              className={`product-gallery__thumb${index === active ? ' is-active' : ''}`}
-              onClick={() => setActive(index)}
-              aria-label={`View image ${index + 1}`}
-              aria-current={index === active ? 'true' : undefined}
-            >
-              <img src={thumb} alt="" />
-            </button>
-          ))}
-        </div>
-      ) : null}
     </div>
   )
 }

@@ -73,7 +73,7 @@
   --shadow-lift: 0 18px 50px color-mix(in srgb, var(--color-ink) 12%, transparent);
 
   --container: min(1180px, calc(100% - 3rem));
-  --nav-height: 72px;
+  --nav-height: 120px;
   --ease: cubic-bezier(0.22, 1, 0.36, 1);
 }
 
@@ -2662,6 +2662,8 @@ p {
 .product-detail {
   display: grid;
   gap: 2.5rem;
+  /* Keep media clear of the fixed glass navbar */
+  margin-top: 0.5rem;
 }
 
 @media (min-width: 900px) {
@@ -2675,6 +2677,7 @@ p {
   position: relative;
   z-index: 1;
   overflow: visible;
+  isolation: isolate;
 }
 
 .product-detail__media img {
@@ -2685,8 +2688,14 @@ p {
 
 .product-gallery {
   position: relative;
+  z-index: 1;
+}
+
+.product-gallery__layout {
   display: grid;
+  grid-template-columns: auto 1fr;
   gap: 0.75rem;
+  align-items: start;
 }
 
 .product-gallery__stage {
@@ -2696,6 +2705,7 @@ p {
   background: var(--color-ivory);
   aspect-ratio: 4 / 5;
   cursor: crosshair;
+  min-width: 0;
 }
 
 .product-gallery__stage img {
@@ -2722,34 +2732,36 @@ p {
   display: none;
   position: absolute;
   top: 0;
-  left: calc(100% + 1rem);
-  width: min(100%, 420px);
+  left: calc(100% + 0.75rem);
+  width: min(92%, 380px);
   aspect-ratio: 4 / 5;
   border-radius: var(--radius-md);
   border: 1px solid var(--color-line);
   background-color: var(--color-ivory);
   background-repeat: no-repeat;
   box-shadow: var(--shadow-soft);
-  z-index: 5;
+  z-index: 4;
   pointer-events: none;
 }
 
 @media (min-width: 900px) {
-  .product-gallery:has(.product-gallery__stage.is-zooming) .product-gallery__zoom {
+  .product-gallery.is-zooming .product-gallery__zoom {
     display: block;
   }
 }
 
 .product-gallery__thumbs {
   display: flex;
-  flex-wrap: wrap;
+  flex-direction: column;
   gap: 0.5rem;
+  max-height: 100%;
 }
 
 .product-gallery__thumb {
   appearance: none;
   width: 64px;
   height: 80px;
+  flex: 0 0 auto;
   padding: 0;
   border: 2px solid transparent;
   border-radius: calc(var(--radius-md) - 4px);
@@ -2772,6 +2784,23 @@ p {
 .product-gallery__thumb:focus-visible {
   outline: 2px solid var(--color-terracotta);
   outline-offset: 2px;
+}
+
+@media (max-width: 899px) {
+  .product-gallery__layout {
+    grid-template-columns: 1fr;
+  }
+
+  .product-gallery__thumbs {
+    order: 2;
+    flex-direction: row;
+    flex-wrap: wrap;
+  }
+
+  .product-gallery__stage {
+    order: 1;
+    cursor: default;
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -2862,7 +2891,7 @@ p {
 @media (max-width: 767px) {
   :root {
     --space-9: 3.25rem;
-    --nav-height: 56px;
+    --nav-height: 80px;
   }
 
   .navbar {
